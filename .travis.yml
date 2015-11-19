@@ -20,3 +20,5 @@ secure: "RI6rF9Mdc0YcA8tylhXp9JCvkSIPJQBnfcpqJ7Y5BkZoLedQ2hiR6G7ZmKSNUe7rwJ9brGA
 #script: mkdir -p m4 && autoreconf -fi && ./configure && make
 
 script: ./autogen.sh && ./configure && make
+
+
