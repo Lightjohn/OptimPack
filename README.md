@@ -8,8 +8,20 @@
    OptimPack is available
    [here](http://cral.univ-lyon1.fr/labo/perso/eric.thiebaut/?Software/OptimPack)***
 
-This is OptimPack, a library for solving large scale optimization
-problems.  This version implements:
+This is **OptimPack**, a library for solving optimization problems.  For
+problems of small to moderate size, **OptimPack** provides:
+
+- computation of a trust region step (see ref. [13]);
+
+- Mike Powell's **COBYLA** (see ref. [10]), **NEWUOA** (see ref. [11]), and
+  **BOBYQA** (see ref. [12]) algorithms for minimizing a function of many
+  variables.  These methods are *derivatives free* (only the function
+  values are needed).  **NEWUOA** is for unconstrained optimization.
+  **COBYLA** accounts for general inequality constraints.  **BOBYQA** accounts
+  for bound constraints on the variables.
+
+For large scale problems involving millions of variables (or more),
+**OptimPack** provides:
 
 - several non-linear conjugate gradient (NLCG) methods (see refs. [1-3]);
 
@@ -20,8 +32,6 @@ problems.  This version implements:
 - spectral project gradient (SPG, see ref. [7]) method;
 
 - inexact monotone and nonmonotone line searches (see ref. [7,8]);
-
-- computation of a trust region step;
 
 - linear conjugate gradients [1] and trust region conjugate gradient [9].
 
@@ -96,6 +106,23 @@ programming languages:
    scale optimization*", SIAM Journal on Numerical Analysis, vol. **20**,
    pp. 626-637, 1983.
 
+10. M.J.D. Powell, "*A direct search optimization method that models the
+    objective and constraint functions by linear interpolation*," in
+    Advances in Optimization and Numerical Analysis Mathematics and Its
+    Applications, vol. **275** (eds. Susana Gomez and Jean-Pierre Hennart),
+    Kluwer Academic Publishers, pp. 51-67 (1994).
+
+11. M.J.D. Powell, "*The NEWUOA software for unconstrained minimization
+    without derivatives*", in Large-Scale Nonlinear Optimization, editors
+    G. Di Pillo and M. Roma, Springer (2006), pages 255-297.
+
+12. M.J.D. Powell, "*The BOBYQA Algorithm for Bound Constrained
+    Optimization Without Derivatives*."  Technical report, Department of
+    Applied Mathematics and Theoretical Physics, University of Cambridge
+    (2009).
+
+13. J.J. Moré & D.C. Sorensen, "*Computing A Trust Region Step*," SIAM
+    J. Sci. Stat. Comp. **4**, 553-572 (1983).
 
 ## Installation
 
@@ -146,8 +173,9 @@ distribution and follow instrutions there.
 ## Credits
 
 The development of OptimPack was supported by the
-[MiTiV](http://mitiv-univ-lyon1.fr) project funded by the French *Agence
-Nationale pour la Recherche* (ref. ANR-09-EMER-008).
+[MiTiV](http://mitiv-univ-lyon1.fr) project funded by the French
+[*Agence Nationale pour la Recherche*](http://www.agence-nationale-recherche.fr)
+(ref. ANR-09-EMER-008).
 
 
 ## License

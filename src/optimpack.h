@@ -164,6 +164,24 @@
 #define OPK_ROUND_UP(a,b)  (OPK_HOW_MANY(a,b)*(b))
 
 /**
+ * Macro `OPK_ADDRESS(type,base,offset)` yields a `type*` address at `offset`
+ * (in bytes) from `base` address.
+ */
+#define OPK_ADDRESS(type, base, offset) ((type*)((char*)(base) + (offset)))
+
+/**
+ * Macro `OPK_OFFSET(type, field)` yields the offset (in bytes) of member
+ * `field` in structure/class `type`.
+ */
+#ifdef offsetof
+#  define OPK_OFFSET(type, field)  offsetof(type, field)
+#elif 1
+#  define OPK_OFFSET(type, field)  ((size_t)((char*)&((type*)0)->field))
+#else
+#  define OPK_OFFSET(type, field)  ((char*)&((type*)0)->field - (char*)0)
+#endif
+
+/**
  * Macro `OPK_LOOP(var,cnt)` yields a simple loop over variable `var` from 0 to
  * `cnt` - 1.
  */
@@ -201,12 +219,6 @@
  * Macro `OPK_FREE(ptr)` frees pointer `ptr` if non-null.
  */
 #define OPK_FREE(ptr)   if (! (ptr)) ; else free(ptr)
-
-/**
- * Macro `OPK_OFFSET(type,member)` yields offset (in bytes) of `member` in
- * structure/class `type`.
- */
-#define OPK_OFFSET(type, member)  ((char*)&((type*)0)->member - (char*)0)
 
 /*---------------------------------------------------------------------------*/
 
@@ -700,7 +712,7 @@ opk_vaxpby(opk_vector_t* dst,
  * @param beta  - The factor for the vector `y`.
  * @param y     - Another vector.
  * @param gamma - The factor for the vector `z`.
- * @param y     - Yet another vector.
+ * @param z     - Yet another vector.
  */
 extern void
 opk_vaxpbypcz(opk_vector_t* dst,
@@ -863,6 +875,18 @@ opk_lnsrch_new_nonmonotone(opk_index_t m, double ftol,
 #define OPK_LNSRCH_WARNING_XTOL_TEST_SATISFIED                3
 #define OPK_LNSRCH_WARNING_STP_EQ_STPMAX                      4
 #define OPK_LNSRCH_WARNING_STP_EQ_STPMIN                      5
+
+/**
+ * Get the description of a line search status.
+ *
+ * @param status - The status code (e.g., as returned by
+ *                 `opk_lnsrch_get_status()`).
+ *
+ * @return A pointer to a string describing the status or `NULL` if
+ *         the status does not correspond to any known status.
+ */
+extern const char*
+opk_lnsrch_message(int status);
 
 /**
  * Start a new linesearch.
@@ -1158,7 +1182,7 @@ opk_get_nlcg_beta(opk_nlcg_t* opt);
 /* The rule can be combined (bitwise or'ed) with one of the following bits to
    compute the initial step size from the previous iteration: */
 #define OPK_NLCG_SHANNO_PHUA         (1<<9)
-#define OPK_NLCG_OREN_SPEDICATO	     (2<<9)
+#define OPK_NLCG_OREN_SPEDICATO      (2<<9)
 #define OPK_NLCG_BARZILAI_BORWEIN    (3<<9)
 
 /* For instance: (OPK_NLCG_POLAK_RIBIERE_POLYAK | OPK_NLCG_POWELL) merely
