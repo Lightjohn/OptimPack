@@ -9,7 +9,7 @@ addons:
     - autoconf
     - automake
     - libtool
-    - gcc-4.8
+    - gcc-4.8-base
 
 compiler:
   - gcc-4.8
